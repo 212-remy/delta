@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/me212/delta/catkin_ws/devel/setup.sh
