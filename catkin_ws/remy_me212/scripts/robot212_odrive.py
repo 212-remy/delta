@@ -37,9 +37,10 @@ kDd = [[[0,0],[0,0]]]
 
 CPR2RAD = (2*math.pi/400000)
 
-odrvs = [None, None]
+#odrvs = [None, None]
+odrvs = [None]
 '''[[ODrive 0, ODrive 1]]'''
-usb_serials = ['2061377C3548', '208637853548']
+usb_serials = ['2087378B3548']#, '208637853548']
 axes = [None, None, None]
 axis0 = None
 axis1 = None

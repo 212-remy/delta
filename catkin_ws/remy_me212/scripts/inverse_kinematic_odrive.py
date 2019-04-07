@@ -3,28 +3,37 @@
 import rospy
 from geometry_msgs.msg import Point
 
-import robot212_odrive as bot
+#####################################
+realBot = True
+#####################################
+
+if realBot:
+    import robot212_odrive as bot
+else:
+    import robot212_virtual as bot
+
 import kinematicsSolver as kin
 import time
 import numpy as np
 
 pi = np.pi #3.1415927
-bot.trajMoveRad((0,0,0))
+#bot.trajMoveRad((0,0,0))
 deltaKin = kin.deltaSolver()
 
 
 def callback(data):
-    x, y, z = data
+    x = data.x
+    y = data.y
+    z = data.z
     thtDes = deltaKin.IK((x, y, z))
-    rospy.loginfo("x:%3.5f    y:%3.5f    z:%3.5f", %(x, y, z))
+    print ("x:%3.5f    y:%3.5f    z:%3.5f" %(x, y, z))
+    print (u"\u03b8\u2081:%3.5f    \u03b8\u2082:%3.5f    \u03b8\u2083:%3.5f" %(thtDes[0], thtDes[1], thtDes[2]))
+    bot.trajMoveRad(thtDes, 2*pi/8, 2*pi/8) # (Desired Angles [rad], Max Velocity [rad/s], Acceleration/Deceleration [rad/s^2])
+    deltaKin.updatePlot((x, y, z))
+#    rospy.loginfo("x:%3.5f    y:%3.5f    z:%3.5f", %(x, y, z))
 
 def listener():
 
-    # In ROS, nodes are uniquely named. If two nodes with the same
-    # name are launched, the previous one is kicked off. The
-    # anonymous=True flag means that rospy will choose a unique
-    # name for our 'listener' node so that multiple listeners can
-    # run simultaneously.
     rospy.init_node('inverse_kinematics', anonymous=False)
 
     rospy.Subscriber('position', Point, callback)
@@ -34,5 +43,4 @@ def listener():
 
 if __name__ == '__main__':
     listener()
-
 
