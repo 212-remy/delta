@@ -1,2 +1,2 @@
-
--DCATKIN_DEVEL_PREFIX=/home/nicole/delta/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/nicole/delta/catkin_ws/install -G Unix Makefiles
+remy_me212
+-DCATKIN_DEVEL_PREFIX=/home/robot/PycharmProjects/delta/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/robot/PycharmProjects/delta/catkin_ws/install -G Unix Makefiles
